@@ -12,28 +12,35 @@
 <h1>Birdified Genius</h1>
 <br><br>
 <audio controls id="bird-sound">
-    <source src="/BirdifiedGenius/audio/bald-eagle-1.mp3" type="audio/mpeg">
+    <source src="" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
 
-<form>
+<form id="answer-options">
 <div class="form-check">
-    <input name="bird" id="bird-1" class="form-check=input" type="radio">
-    <label for="bird-1" class="form-check-label" id="bird-1-label"></label>
+    <input name="answer" id="answer-1" class="form-check=input" type="radio">
+    <label for="answer-1" class="form-check-label" id="answer-1-label"></label>
 </div>
 <div class="form-check">
-    <input name="bird" id="bird-2" class="form-check=input" type="radio">
-    <label for="bird-2" class="form-check-label" id="bird-2-label"></label>
+    <input name="answer" id="answer-2" class="form-check=input" type="radio">
+    <label for="answer-2" class="form-check-label" id="answer-2-label"></label>
 </div>
 <div class="form-check">
-    <input name="bird" id="bird-3" class="form-check=input" type="radio">
-    <label for="bird-3" class="form-check-label" id="bird-3-label"></label>
+    <input name="answer" id="answer-3" class="form-check=input" type="radio">
+    <label for="answer-3" class="form-check-label" id="answer-3-label"></label>
 </div>
 <div class="form-check">
-    <input name="bird" id="bird-4" class="form-check=input" type="radio">
-    <label for="bird-4" class="form-check-label" id="bird-4-label"></label>
+    <input name="answer" id="answer-4" class="form-check=input" type="radio">
+    <label for="answer-4" class="form-check-label" id="answer-4-label"></label>
 </div>
 </form>
+
+<button id="check-answer">Check answer</button>
+
+<p id="answer-text"></p>
+
+<button id="play-again">Play again</button>
+
 
 </body>
 </html>
