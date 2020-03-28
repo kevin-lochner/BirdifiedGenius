@@ -7,78 +7,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="birds.css">
     <script src="birds.js"></script>
     <script async defer src="birdGame.js"></script>
 
 </head>
-<body class="m3" align="center">
-<div class="container"></div>
+<body>
+<div class="container">
 
-<div class="row">
-    <div class="col-lg">
-        <div class="jumbotron">
-            <h1>Birdified Genius</h1>
+    <div class="row">
+        <div class="col-md">
+            <div class="jumbotron">
+                <h1>Birdified Genius</h1>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-lg">
-        <div class="text-center" id="question">
-            <h3>What bird are you hearing?</h3>
+    <div class="row">
+        <div class="col-md">
+            <div class="question">
+                <h3>What bird are you hearing?</h3>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-lg">
-        <div class="text-center" id="audio" style="margin-top: 10px">
-            <audio controls id="bird-sound">
-                <source src="" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+    <div class="row">
+        <div class="col-md">
+            <div class="audio" style="margin-top: 10px">
+                <audio controls id="bird-sound">
+                    <source src="" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-lg">
-        <div class="text-center" id="answer-form" style="margin-top: 10px">
-            <form id="answer-options">
-                <div class="form-check">
-                    <input name="answer" id="answer-1" class="form-check=input" type="radio">
-                    <label for="answer-1" class="form-check-label" id="answer-1-label"></label>
-                </div>
-                <div class="form-check">
-                    <input name="answer" id="answer-2" class="form-check=input" type="radio">
-                    <label for="answer-2" class="form-check-label" id="answer-2-label"></label>
-                </div>
-                <div class="form-check">
-                    <input name="answer" id="answer-3" class="form-check=input" type="radio">
-                    <label for="answer-3" class="form-check-label" id="answer-3-label"></label>
-                </div>
-                <div class="form-check">
-                    <input name="answer" id="answer-4" class="form-check=input" type="radio">
-                    <label for="answer-4" class="form-check-label" id="answer-4-label"></label>
-                </div>
-            </form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class=answer-form" style="margin-top: 10px">
+                <form class="answer-options" >
+                    <div class="form-check">
+                        <input name="answer" id="answer-1" class="form-check=input" type="radio">
+                        <label for="answer-1" class="btn btn-secondary btn-block" id="answer-1-label"></label>
+                    </div>
+                    <div class="form-check">
+                        <input name="answer" id="answer-2" class="form-check=input" type="radio">
+                        <label for="answer-2" class="btn btn-secondary btn-block" id="answer-2-label"></label>
+                    </div>
+                    <div class="form-check">
+                        <input name="answer" id="answer-3" class="form-check=input" type="radio">
+                        <label for="answer-3" class="btn btn-secondary btn-block" id="answer-3-label"></label>
+                    </div>
+                    <div class="form-check">
+                        <input name="answer" id="answer-4" class="form-check=input" type="radio">
+                        <label for="answer-4" class="btn btn-secondary btn-block" id="answer-4-label"></label>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <img class="image-match" src="/BirdifiedGenius/images/blue-jay.jpg" alt="A blue jay">
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-lg">
-        <div class="text-center" id="submit-button" style="margin-top: 10px">
-            <button class="btn btn-primary" id="check-answer">Check answer</button>
-        </div>
-        <div class="text-center" id="answer-display" style="margin-top: 10px">
-            <p id="answer-text"></p>
-        </div>
-        <div class="text-center" id="replay-button" style="margin-top: 10px">
-            <button class="btn btn-primary" id="play-again">Play again</button>
+    <div class="row">
+        <div class="col-md">
+            <div class="submit-button" id="submit-button" style="margin-top: 10px">
+                <button class="btn btn-primary" id="check-answer">Check answer</button>
+            </div>
+            <div class="answer-display" id="answer-display" style="margin-top: 10px">
+                <p id="answer-text"></p>
+            </div>
+            <div class="replay-button" id="replay-button" style="margin-top: 10px">
+                <button class="btn btn-primary" id="play-again">Play again</button>
+            </div>
         </div>
     </div>
+
 </div>
+
 </body>
 
 </html>
