@@ -6,9 +6,11 @@ let answerMessage = document.getElementById('answer-text')
 playSoundGame()
 
 function playSoundGame () {
-    buildAnswerOptions()
+    let correctBirdIndex = buildAnswerOptions()
+    buildButtons(correctBirdIndex)
 }
 
+//Function to pick a the bird sound we'll play
 function selectBirdSound() {
     // Choose a random "correct answer" object from birds.js
     let correctBirdIndex = Math.floor(Math.random() * birds.length)
@@ -20,6 +22,7 @@ function selectBirdSound() {
     return correctBirdIndex
 }
 
+//Function to randomly select and order 3 birds, along with the correct answer
 function buildAnswerOptions () {
     // Select an index to serve as the correct answer
     let correctBirdIndex = selectBirdSound()
@@ -37,19 +40,33 @@ function buildAnswerOptions () {
     shuffle(answerOptions)
 
     // Select and assign answer radio buttons
-    console.log(birds[correctBirdIndex].name)
-    let answer1 = document.getElementById('answer-1-label')
-    let answer2 = document.getElementById('answer-2-label')
-    let answer3 = document.getElementById('answer-3-label')
-    let answer4 = document.getElementById('answer-4-label')
-    answer1.innerHTML = birds[answerOptions[0]].name
-    answer2.innerHTML = birds[answerOptions[1]].name
-    answer3.innerHTML = birds[answerOptions[2]].name
-    answer4.innerHTML = birds[answerOptions[3]].name
+    let answer1Label = document.getElementById('answer-1-label')
+    let answer2Label = document.getElementById('answer-2-label')
+    let answer3Label = document.getElementById('answer-3-label')
+    let answer4Label = document.getElementById('answer-4-label')
+    answer1Label.innerHTML = birds[answerOptions[0]].name
+    answer2Label.innerHTML = birds[answerOptions[1]].name
+    answer3Label.innerHTML = birds[answerOptions[2]].name
+    answer4Label.innerHTML = birds[answerOptions[3]].name
 
+    // Set checked to false (not necessary on first play, but button otherwise remains checked on subsequent plays
+    let answer1Checked = document.getElementById('answer-1')
+    let answer2Checked = document.getElementById('answer-2')
+    let answer3Checked = document.getElementById('answer-3')
+    let answer4Checked = document.getElementById('answer-4')
+    answer1Checked.checked = false
+    answer2Checked.checked = false
+    answer3Checked.checked = false
+    answer4Checked.checked = false
+
+    return correctBirdIndex
+}
+
+//Function to define check answer and play again buttons
+function buildButtons (correctBirdIndex) {
     checkAnswerButton.addEventListener('click', function () {
         // Which button is checked?
-        // gGt the text associated with the answer
+        // Get the text associated with the answer
         let userAnswer = document.getElementById(document.querySelector('input[name = answer]:checked').id + '-label').innerHTML
         // Compare
         if (userAnswer === birds[correctBirdIndex].name) {
@@ -64,7 +81,6 @@ function buildAnswerOptions () {
     })
 
 }
-
 
 
 // This function is an adaptation of the Fisher-Yates algorithm found here:
