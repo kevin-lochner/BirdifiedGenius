@@ -1,6 +1,7 @@
 let checkAnswerButton = document.getElementById('check-answer')
 let replayButton = document.getElementById('play-again')
 let answerMessage = document.getElementById('answer-text')
+let buttonCheckedImage  = document.getElementById('image-match')
 
 
 playSoundGame()
@@ -51,18 +52,29 @@ function buildAnswerOptions () {
 
     // Set checked to false (not necessary on first play, but button otherwise remains checked on subsequent plays
     let answer1Checked = document.getElementById('answer-1')
-    let answer2Checked = document.getElementById('answer-2')
-    let answer3Checked = document.getElementById('answer-3')
-    let answer4Checked = document.getElementById('answer-4')
-    answer1Checked.checked = false
-    answer2Checked.checked = false
-    answer3Checked.checked = false
-    answer4Checked.checked = false
+    answer1Checked.checked = true
+
+    // Set the image on the right hand side of the page to match the first answer option
+    switchImage(0, answerOptions)
+
+    // Any time a new potential answer is clicked, update the image to correspond
+    answer1Label.addEventListener('click', function () {
+        switchImage(0, answerOptions)
+    })
+    answer2Label.addEventListener('click', function () {
+        switchImage(1, answerOptions)
+    })
+    answer3Label.addEventListener('click', function () {
+        switchImage(2, answerOptions)
+    })
+    answer4Label.addEventListener('click', function () {
+        switchImage(3, answerOptions)
+    })
 
     return correctBirdIndex
 }
 
-//Function to define check answer and play again buttons
+// Function to define check answer and play again buttons
 function buildButtons (correctBirdIndex) {
     checkAnswerButton.addEventListener('click', function () {
         // Which button is checked?
@@ -80,6 +92,12 @@ function buildButtons (correctBirdIndex) {
         playSoundGame()
     })
 
+}
+
+// Function to update the image on the right of the page to correspond with the currently selected answer
+function switchImage(n, answerOptions) {
+    let checkedImageSource = birds[answerOptions[n]].photos[0]
+    buttonCheckedImage.src = checkedImageSource
 }
 
 

@@ -24,26 +24,18 @@
     </div>
 
     <div class="row">
-        <div class="col-md">
+        <div class="col-md-6">
             <div class="question">
                 <h3>What bird are you hearing?</h3>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md">
             <div class="audio" style="margin-top: 10px">
                 <audio controls id="bird-sound">
                     <source src="" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-6">
             <div class=answer-form" style="margin-top: 10px">
                 <form class="answer-options" >
                     <div class="form-check">
@@ -64,26 +56,23 @@
                     </div>
                 </form>
             </div>
-        </div>
 
-        <div class="col-md-6">
-            <img class="image-match" src="/BirdifiedGenius/images/blue-jay.jpg" alt="A blue jay">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md">
             <div class="submit-button" id="submit-button" style="margin-top: 10px">
-                <button class="btn btn-primary" id="check-answer">Check answer</button>
+                <button class="btn btn-primary btn-block" id="check-answer">Check answer</button>
             </div>
             <div class="answer-display" id="answer-display" style="margin-top: 10px">
                 <p id="answer-text"></p>
             </div>
             <div class="replay-button" id="replay-button" style="margin-top: 10px">
-                <button class="btn btn-primary" id="play-again">Play again</button>
+                <button class="btn btn-primary btn-block" id="play-again">Play again</button>
             </div>
         </div>
+        <div class="col-md-6">
+            <img id="image-match" class="image-match">
+        </div>
     </div>
+
+
 
 </div>
 
