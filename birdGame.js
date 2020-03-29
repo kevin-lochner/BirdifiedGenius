@@ -1,3 +1,5 @@
+// This script creates and runs a quiz game that plays bird sounds and asks the user to identify the bird
+
 let checkAnswerButton = document.getElementById('check-answer')
 let replayButton = document.getElementById('play-again')
 let answerMessage = document.getElementById('answer-text')
@@ -23,7 +25,7 @@ function selectBirdSound() {
     return correctBirdIndex
 }
 
-//Function to randomly select and order 3 birds, along with the correct answer
+//Function to randomly select and display 3 potential answers, along with the correct answer, in a random order
 function buildAnswerOptions () {
     // Select an index to serve as the correct answer
     let correctBirdIndex = selectBirdSound()
@@ -78,7 +80,7 @@ function buildAnswerOptions () {
 function buildButtons (correctBirdIndex) {
     checkAnswerButton.addEventListener('click', function () {
         // Which button is checked?
-        // Get the text associated with the answer
+        // Get the text associated with the answer for comparison
         let userAnswer = document.getElementById(document.querySelector('input[name = answer]:checked').id + '-label').innerHTML
         // Compare
         if (userAnswer === birds[correctBirdIndex].name) {
@@ -87,6 +89,7 @@ function buildButtons (correctBirdIndex) {
 
     })
 
+    // Play again button
     replayButton.addEventListener('click', function () {
         answerMessage.innerText = ''
         playSoundGame()

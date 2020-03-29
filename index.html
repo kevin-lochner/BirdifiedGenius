@@ -13,7 +13,7 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 
     <div class="row">
         <div class="col-md">
@@ -24,55 +24,71 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
-            <div class="question">
-                <h3>What bird are you hearing?</h3>
-            </div>
 
-            <div class="audio" style="margin-top: 10px">
-                <audio controls id="bird-sound">
-                    <source src="" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-
-            <div class=answer-form" style="margin-top: 10px">
+        <div class="col-md-4">
+            <div class="answer-form">
                 <form class="answer-options" >
                     <div class="form-check">
-                        <input name="answer" id="answer-1" class="form-check=input" type="radio">
-                        <label for="answer-1" class="btn btn-secondary btn-block" id="answer-1-label"></label>
+                        <input name="answer" id="answer-1" class="form-check-input" type="radio">
+                        <label for="answer-1" class="btn btn-secondary" id="answer-1-label"></label>
                     </div>
                     <div class="form-check">
-                        <input name="answer" id="answer-2" class="form-check=input" type="radio">
-                        <label for="answer-2" class="btn btn-secondary btn-block" id="answer-2-label"></label>
+                        <input name="answer" id="answer-2" class="form-check-input" type="radio">
+                        <label for="answer-2" class="btn btn-secondary" id="answer-2-label"></label>
                     </div>
                     <div class="form-check">
-                        <input name="answer" id="answer-3" class="form-check=input" type="radio">
-                        <label for="answer-3" class="btn btn-secondary btn-block" id="answer-3-label"></label>
+                        <input name="answer" id="answer-3" class="form-check-input" type="radio">
+                        <label for="answer-3" class="btn btn-secondary" id="answer-3-label"></label>
                     </div>
                     <div class="form-check">
-                        <input name="answer" id="answer-4" class="form-check=input" type="radio">
-                        <label for="answer-4" class="btn btn-secondary btn-block" id="answer-4-label"></label>
+                        <input name="answer" id="answer-4" class="form-check-input" type="radio">
+                        <label for="answer-4" class="btn btn-secondary" id="answer-4-label"></label>
                     </div>
                 </form>
             </div>
+        </div>
 
-            <div class="submit-button" id="submit-button" style="margin-top: 10px">
-                <button class="btn btn-primary btn-block" id="check-answer">Check answer</button>
+        <div class="col-md-4 center">
+
+            <div class="question">
+                <h3>Who's call is this?</h3>
             </div>
-            <div class="answer-display" id="answer-display" style="margin-top: 10px">
-                <p id="answer-text"></p>
+
+            <div class="audio">
+                <audio controls id="bird-sound">
+                    <source src="" type="audio/mpeg">
+                </audio>
             </div>
-            <div class="replay-button" id="replay-button" style="margin-top: 10px">
-                <button class="btn btn-primary btn-block" id="play-again">Play again</button>
+
+            <div class="submit-button " id="submit-button" style="margin-top: 10px">
+                <button class="btn" id="check-answer">Check answer</button>
             </div>
+
         </div>
-        <div class="col-md-6">
-            <img id="image-match" class="image-match">
+
+        <div class="col-md-4">
+
+            <img id="image-match" class="image-match img-fluid">
+
         </div>
+
     </div>
 
+    <div class="row">
 
+        <div class="col-md">
+
+            <div class="answer-display" id="answer-display">
+                <p id="answer-text"></p>
+            </div>
+
+            <div class="replay-button" id="replay-button">
+                <button class="btn" id="play-again">Play again</button>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
