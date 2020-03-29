@@ -4,16 +4,18 @@ let checkAnswerButton = document.getElementById('check-answer')
 let replayButton = document.getElementById('play-again')
 let answerMessage = document.getElementById('answer-text')
 let buttonCheckedImage  = document.getElementById('image-match')
+let progress = 0
 
 
-playSoundGame()
+playGame()
 
-function playSoundGame () {
-    let correctBirdIndex = buildAnswerOptions()
+// Basic gameplay function
+function playGame() {
+    let correctBirdIndex = buildGame()
     buildButtons(correctBirdIndex)
 }
 
-//Function to pick a the bird sound we'll play
+//Function to select a random bird and a corresponding call
 function selectBirdSound() {
     // Choose a random "correct answer" object from birds.js
     let correctBirdIndex = Math.floor(Math.random() * birds.length)
@@ -26,7 +28,7 @@ function selectBirdSound() {
 }
 
 //Function to randomly select and display 3 potential answers, along with the correct answer, in a random order
-function buildAnswerOptions () {
+function buildGame () {
     // Select an index to serve as the correct answer
     let correctBirdIndex = selectBirdSound()
     // Create array of options that includes the "correct" index
@@ -59,7 +61,7 @@ function buildAnswerOptions () {
     // Set the image on the right hand side of the page to match the first answer option
     switchImage(0, answerOptions)
 
-    // Any time a new potential answer is clicked, update the image to correspond
+    // Any time a potential answer is clicked, update the image to correspond
     answer1Label.addEventListener('click', function () {
         switchImage(0, answerOptions)
     })
@@ -76,8 +78,8 @@ function buildAnswerOptions () {
     return correctBirdIndex
 }
 
-// Function to define check answer and play again buttons
-function buildButtons (correctBirdIndex) {
+function buildButtons(correctBirdIndex) {
+    // Create the buttons
     checkAnswerButton.addEventListener('click', function () {
         // Which button is checked?
         // Get the text associated with the answer for comparison
@@ -85,14 +87,20 @@ function buildButtons (correctBirdIndex) {
         // Compare
         if (userAnswer === birds[correctBirdIndex].name) {
             answerMessage.innerHTML = 'Correct!'
-        } else answerMessage.innerHTML = `Sorry, ${birds[correctBirdIndex].name} is the right answer.`
+            progress += 1
+            console.log('progress: ' + progress)
+        } else {
+            answerMessage.innerHTML = `Sorry, ${birds[correctBirdIndex].name} is the right answer.`
+            progress = 0
+            console.log('progress: '+ progress)
+        }
 
     })
 
     // Play again button
     replayButton.addEventListener('click', function () {
         answerMessage.innerText = ''
-        playSoundGame()
+        correctBirdIndex = buildGame()
     })
 
 }
