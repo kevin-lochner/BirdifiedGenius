@@ -3,36 +3,39 @@
 let checkAnswerButton = document.getElementById('check-answer')
 let replayButton = document.getElementById('play-again')
 let answerMessage = document.getElementById('answer-text')
-let buttonCheckedImage  = document.getElementById('image-match')
+let imageMatch  = document.getElementById('image-match')
+let audio = document.getElementById('bird-sound')
 let progress = 0
 
-
+// Play the game
 playGame()
 
 // Basic gameplay function
 function playGame() {
-    let correctBirdIndex = buildGame()
-    buildButtons(correctBirdIndex)
+    let correctAnswerIndex = buildGame()
+    buildButtons(correctAnswerIndex)
 }
 
-//Function to select a random bird and a corresponding call
+//Function to select a random bird and load a corresponding call into the audio element
 function selectBirdSound() {
     // Choose a random "correct answer" object from birds.js
-    let correctBirdIndex = Math.floor(Math.random() * birds.length)
-    let correctBirdObject = birds[correctBirdIndex]
-    // Select sound element, and set its source to the selected birds' sound
-    let birdSoundElement = document.getElementById('bird-sound')
-    birdSoundElement.setAttribute('src', correctBirdObject.sounds[Math.floor(Math.random()
-        * correctBirdObject.sounds.length)])
-    return correctBirdIndex
+    let correctAnswerIndex = Math.floor(Math.random() * birds.length)
+    let correctAnswerObject = birds[correctAnswerIndex]
+    // Select sound element, and set its source to the selected birds' call
+    // Uses a random index from the sounds array to allow for a single bird to have multiple calls
+    audio.setAttribute('src', correctAnswerObject.sounds[Math.floor(Math.random()
+        * correctAnswerObject.sounds.length)])
+    return correctAnswerIndex
 }
 
 //Function to randomly select and display 3 potential answers, along with the correct answer, in a random order
 function buildGame () {
+    // Clear the answer message
+    answerMessage.innerText = ''
     // Select an index to serve as the correct answer
-    let correctBirdIndex = selectBirdSound()
+    let correctAnswerIndex = selectBirdSound()
     // Create array of options that includes the "correct" index
-    let answerOptions = [correctBirdIndex]
+    let answerOptions = [correctAnswerIndex]
     // Add three more random indexes from birds.js
     while (answerOptions.length < 4) {
         let newAnswerIndex = Math.floor(Math.random() * birds.length)
@@ -54,7 +57,7 @@ function buildGame () {
     answer3Label.innerHTML = birds[answerOptions[2]].name
     answer4Label.innerHTML = birds[answerOptions[3]].name
 
-    // Set checked to false (not necessary on first play, but button otherwise remains checked on subsequent plays
+    // Set the first answer to checked
     let answer1Checked = document.getElementById('answer-1')
     answer1Checked.checked = true
 
@@ -75,42 +78,48 @@ function buildGame () {
         switchImage(3, answerOptions)
     })
 
-    return correctBirdIndex
+    return correctAnswerIndex
 }
 
-function buildButtons(correctBirdIndex) {
-    // Create the buttons
+// Function to define buttons and their functions
+function buildButtons(correctAnswerIndex) {
     checkAnswerButton.addEventListener('click', function () {
-        // Which button is checked?
-        // Get the text associated with the answer for comparison
-        let userAnswer = document.getElementById(document.querySelector('input[name = answer]:checked').id + '-label').innerHTML
-        // Compare
-        if (userAnswer === birds[correctBirdIndex].name) {
-            answerMessage.innerHTML = 'Correct!'
-            progress += 1
-            console.log('progress: ' + progress)
-            trackProgress()
-        } else {
-            answerMessage.innerHTML = `Sorry, ${birds[correctBirdIndex].name} is the right answer.`
-            progress = 0
-            console.log('progress: '+ progress)
-            trackProgress()
-        }
-
+        // Stop the audio and run the check answer function
+        audio.pause()
+        checkAnswer(correctAnswerIndex)
     })
 
     // Play again button
     replayButton.addEventListener('click', function () {
-        answerMessage.innerText = ''
-        correctBirdIndex = buildGame()
+        // Reset the game
+        correctAnswerIndex = buildGame()
     })
+}
 
+// Answer checker function
+function checkAnswer(correctAnswerIndex) {
+    // Which button is checked?
+    // Get the text associated with the answer for comparison
+    let userAnswer = document.getElementById(document.querySelector('input[name = answer]:checked').id + '-label').innerHTML
+    // Compare
+    if (userAnswer === birds[correctAnswerIndex].name) {
+        // Display the message, update progress iterator and run the trackProgress function to update the bar
+        answerMessage.innerHTML = `${birds[correctAnswerIndex].name} is correct!`
+        progress += 1
+        trackProgress()
+    } else {
+        // Set the image to correspond with the correct answer, display message, update progress
+        imageMatch.src = birds[correctAnswerIndex].photos[0]
+        answerMessage.innerHTML = `Sorry, ${birds[correctAnswerIndex].name} is the right answer.`
+        progress = 0
+        trackProgress()
+    }
 }
 
 // Function to update the image on the right of the page to correspond with the currently selected answer
 function switchImage(n, answerOptions) {
     let checkedImageSource = birds[answerOptions[n]].photos[0]
-    buttonCheckedImage.src = checkedImageSource
+    imageMatch.src = checkedImageSource
 }
 
 function trackProgress() {

@@ -1,0 +1,92 @@
+.jumbotron {
+    background-color: #16503D;
+    text-align: center;
+    color: #ffffff;
+}
+
+body {
+    background-color: #C2D4CE;
+}
+
+.question {
+    text-align: center;
+    color: #063627;
+}
+
+.audio {
+    text-align: center;
+}
+
+.answer-form {
+    margin-left: -1.25rem;
+}
+
+.form-check input[type=radio] {
+    display: none;
+}
+
+.form-check-label {
+    background-color: #ddd;
+    font-size: 16px;
+}
+
+.form-check input[type="radio"]:checked + label {
+    background-color:#295f4d;
+    border-color: #295f4d;
+}
+
+.btn-secondary {
+    width: 300px;
+}
+
+.submit-button {
+    text-align: center;
+}
+
+.answer-form {
+    text-align: center;
+}
+
+.image-match {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 325px;
+    border: 3px #295f4d;
+}
+
+#check-answer {
+    width: 300px;
+    background-color: #295f4d;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.answer-display {
+    text-align: center;
+}
+
+.replay-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#play-again {
+    width: 300px;
+    background-color: #295f4d;
+    color: #ffffff;
+}
+
+.progress {
+    margin-top: 10px;
+    height: 25px;
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.progress-bar {
+    background-color: #295f4d;
+    color: #ffffff;
+}
