@@ -89,10 +89,12 @@ function buildButtons(correctBirdIndex) {
             answerMessage.innerHTML = 'Correct!'
             progress += 1
             console.log('progress: ' + progress)
+            trackProgress()
         } else {
             answerMessage.innerHTML = `Sorry, ${birds[correctBirdIndex].name} is the right answer.`
             progress = 0
             console.log('progress: '+ progress)
+            trackProgress()
         }
 
     })
@@ -109,6 +111,21 @@ function buildButtons(correctBirdIndex) {
 function switchImage(n, answerOptions) {
     let checkedImageSource = birds[answerOptions[n]].photos[0]
     buttonCheckedImage.src = checkedImageSource
+}
+
+function trackProgress() {
+    let progressBar = document.getElementById('progress-bar')
+    if(progress === 0) {
+        let progressCSS = `${progress * 10}%`
+        progressBar.style.width = progressCSS
+        progressBar.setAttribute('aria-ValueNow', progress)
+        progressBar.innerHTML = ''
+    } else {
+        let progressCSS = `${progress * 10}%`
+        progressBar.style.width = progressCSS
+        progressBar.setAttribute('aria-ValueNow', progress)
+        progressBar.innerHTML = `${progress} in a row`
+    }
 }
 
 
