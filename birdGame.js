@@ -57,6 +57,11 @@ function buildGame () {
     answer3Label.innerHTML = birds[answerOptions[2]].name
     answer4Label.innerHTML = birds[answerOptions[3]].name
 
+    for (let bird = 0; bird < birds.length; bird++) {
+        let image = new Image()
+        image.src = birds[bird].photos[0]
+    }
+
     // Set the first answer to checked
     let answer1Checked = document.getElementById('answer-1')
     answer1Checked.checked = true
@@ -79,6 +84,11 @@ function buildGame () {
     })
 
     return correctAnswerIndex
+}
+
+
+function assignAnswers(answerOptions) {
+
 }
 
 // Function to define buttons and their functions
@@ -118,8 +128,7 @@ function checkAnswer(correctAnswerIndex) {
 
 // Function to update the image on the right of the page to correspond with the currently selected answer
 function switchImage(n, answerOptions) {
-    let checkedImageSource = birds[answerOptions[n]].photos[0]
-    imageMatch.src = checkedImageSource
+    imageMatch.src = birds[answerOptions[n]].photos[0]
 }
 
 function trackProgress() {
