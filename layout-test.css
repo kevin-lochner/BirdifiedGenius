@@ -1,0 +1,92 @@
+.jumbotron {
+    background-color: #16503D;
+    text-align: center;
+    color: #ffffff;
+}
+
+.question {
+    text-align: center;
+    color: #063627;
+}
+
+.audio {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.answer-form {
+    margin-left: -1.25rem;
+}
+
+.form-check input[type=radio] {
+    display: none;
+}
+
+.form-check-label {
+    background-color: #ddd;
+    font-size: 16px;
+}
+
+.form-check input[type="radio"]:checked + label {
+    background-color:#295f4d;
+    border-color: #295f4d;
+}
+
+.btn-secondary {
+    width: 300px;
+}
+
+.submit-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.answer-form {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.image-match {
+    display: block;
+    margin-left: 5px;
+    max-height: 450px;
+    border: 3px #295f4d;
+}
+
+#check-answer {
+    width: 300px;
+    background-color: #295f4d;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.answer-display {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.replay-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#play-again {
+    width: 300px;
+    background-color: #295f4d;
+    color: #ffffff;
+}
+
+.progress {
+    margin-top: 40px;
+    height: 50px;
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: x-small;
+
+}
+
+.progress-bar {
+    background-color: #295f4d;
+    color: #ffffff;
+}
