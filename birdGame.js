@@ -57,6 +57,7 @@ function buildGame () {
     answer3Label.innerHTML = birds[answerOptions[2]].name
     answer4Label.innerHTML = birds[answerOptions[3]].name
 
+    // Preload the main image for each bird to speed image swaps
     for (let bird = 0; bird < birds.length; bird++) {
         let image = new Image()
         image.src = birds[bird].photos[0]
@@ -137,12 +138,12 @@ function trackProgress() {
         let progressCSS = `${progress * 10}%`
         progressBar.style.width = progressCSS
         progressBar.setAttribute('aria-ValueNow', progress)
-        progressBar.innerHTML = ''
+        progressBar.innerHTML = `Streak: ${progress}`
     } else {
         let progressCSS = `${progress * 10}%`
         progressBar.style.width = progressCSS
         progressBar.setAttribute('aria-ValueNow', progress)
-        progressBar.innerHTML = `${progress} in a row`
+        progressBar.innerHTML = `Streak: ${progress}`
     }
 }
 
