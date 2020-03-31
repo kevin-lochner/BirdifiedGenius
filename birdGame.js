@@ -33,20 +33,15 @@ function selectBirdSound() {
 function buildGame () {
     // Clear the answer message
     answerMessage.innerText = ''
+
     // Select an index to serve as the correct answer
     let correctAnswerIndex = selectBirdSound()
-    // Create array of options that includes the "correct" index
-    let answerOptions = [correctAnswerIndex]
-    // Add three more random indexes from birds.js
-    while (answerOptions.length < 4) {
-        let newAnswerIndex = Math.floor(Math.random() * birds.length)
-        if (!answerOptions.includes(newAnswerIndex)) {
-            answerOptions.push(newAnswerIndex)
-        }
-    }
 
-    // Randomly reorder the answer options
-    shuffle(answerOptions)
+    // Create the rest of the potential answers
+    let answerOptions = createAnswerOptions(correctAnswerIndex)
+
+    // Pre load the images for faster swaps
+    loadImages(answerOptions)
 
     // Select and assign answer radio buttons
     let answer1Label = document.getElementById('answer-1-label')
@@ -57,12 +52,6 @@ function buildGame () {
     answer2Label.innerHTML = birds[answerOptions[1]].name
     answer3Label.innerHTML = birds[answerOptions[2]].name
     answer4Label.innerHTML = birds[answerOptions[3]].name
-
-    // Preload the main image for each bird to speed image swaps
-    for (let bird = 0; bird < birds.length; bird++) {
-        let image = new Image()
-        image.src = birds[bird].photos[0]
-    }
 
     // Set the first answer to checked
     let answer1Checked = document.getElementById('answer-1')
@@ -86,6 +75,24 @@ function buildGame () {
     })
 
     return correctAnswerIndex
+}
+
+// Function to create an array of 4 random answer options
+function createAnswerOptions(correctAnswerIndex){
+    // Create array of options that includes the "correct" index
+    let answerOptions = [correctAnswerIndex]
+    // Add three more random indexes from birds.js
+    while (answerOptions.length < 4) {
+        let newAnswerIndex = Math.floor(Math.random() * birds.length)
+        if (!answerOptions.includes(newAnswerIndex)) {
+            answerOptions.push(newAnswerIndex)
+        }
+    }
+
+    // Randomly reorder the answer options
+    shuffle(answerOptions)
+
+    return answerOptions
 }
 
 // Function to define buttons and their functions
@@ -129,6 +136,7 @@ function switchImage(n, answerOptions) {
     imageMatch.alt = `A ${birds[answerOptions[n]].name}`
 }
 
+// Function for updating progress bar
 function trackProgress() {
     let progressBar = document.getElementById('progress-bar')
     if(progress === 0) {
@@ -144,6 +152,29 @@ function trackProgress() {
     }
 }
 
+// Function for image preloading
+function loadImagesLong(answerOptions) {
+    // array for iteration
+    let birdChoices = [
+        birds[answerOptions[0]],
+        birds[answerOptions[1]],
+        birds[answerOptions[2]],
+        birds[answerOptions[3]]
+    ]
+
+    birdChoices.forEach( bird => {
+        let image = new Image()
+        image.src = bird.photos[0].src.valueOf()
+    })
+}
+
+// Function for image preloading
+function loadImages(answerOptions) {
+    answerOptions.forEach( option => {
+        let image = new Image()
+        image.src = birds[option].photos[0].src.valueOf()
+    })
+}
 
 // This function is an adaptation of the Fisher-Yates algorithm found here:
 // https://medium.com/@joshfoster_14132/best-javascript-shuffle-algorithm-c2c8057a3bc1
