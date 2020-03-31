@@ -23,17 +23,20 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm">
-            <div class="question">
-                <h3>What bird's call is this?</h3>
-            </div>
-        </div>
-    </div>
-
     <div class="row align-items-center">
 
-        <div class="col-sm-4">
+        <div class="col-sm-6">
+
+            <div class="question">
+                <h2>What bird's call is this?</h2>
+            </div>
+
+            <div class="audio">
+                <audio controls id="bird-sound">
+                    <source src="" type="audio/mpeg">
+                </audio>
+            </div>
+
             <div class="answer-form">
                 <form class="answer-options" >
                     <div class="form-check">
@@ -54,17 +57,8 @@
                     </div>
                 </form>
             </div>
-        </div>
-
-        <div class="col-sm-4">
 
             <div id="control-section">
-
-                <div class="audio">
-                    <audio controls id="bird-sound">
-                        <source src="" type="audio/mpeg">
-                    </audio>
-                </div>
 
                 <div class="submit-button " id="submit-button">
                     <button class="btn" id="check-answer">Check answer</button>
@@ -74,15 +68,11 @@
                     <button class="btn" id="play-again">Play again</button>
                 </div>
 
-                <div class="answer-display" id="answer-display">
-                    <p id="answer-text"></p>
-                </div>
-
             </div>
 
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-6">
 
             <img id="image-match" class="image-match img-fluid">
 
@@ -106,14 +96,18 @@
 
     </div>
 
-    <div class="row align-items-center">
+    <div class="row">
 
         <div class="col-sm-12">
 
-            <div class="progress">
-                <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10">
-                </div>
+            <div class="answer-display" id="answer-display">
+                <h4 id="answer-text"></h4>
             </div>
+
+            <div class="progress">
+                    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="25">
+                    </div>
+                </div>
 
         </div>
 

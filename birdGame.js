@@ -140,12 +140,12 @@ function switchImage(n, answerOptions) {
 function trackProgress() {
     let progressBar = document.getElementById('progress-bar')
     if(progress === 0) {
-        let progressCSS = `${progress * 10}%`
+        let progressCSS = `${progress * 4}%`
         progressBar.style.width = progressCSS
         progressBar.setAttribute('aria-ValueNow', progress)
         progressBar.innerHTML = `Streak: ${progress}`
     } else {
-        let progressCSS = `${progress * 10}%`
+        let progressCSS = `${progress * 4}%`
         progressBar.style.width = progressCSS
         progressBar.setAttribute('aria-ValueNow', progress)
         progressBar.innerHTML = `Streak: ${progress}`
