@@ -23,8 +23,9 @@ function selectBirdSound() {
     let correctAnswerObject = birds[correctAnswerIndex]
     // Select sound element, and set its source to the selected birds' call
     // Uses a random index from the sounds array to allow for a single bird to have multiple calls
-    audio.setAttribute('src', correctAnswerObject.sounds[Math.floor(Math.random()
-        * correctAnswerObject.sounds.length)])
+    audio.src = correctAnswerObject.sounds[Math.floor(Math.random()
+        * correctAnswerObject.sounds.length)].src.valueOf()
+
     return correctAnswerIndex
 }
 
@@ -87,11 +88,6 @@ function buildGame () {
     return correctAnswerIndex
 }
 
-
-function assignAnswers(answerOptions) {
-
-}
-
 // Function to define buttons and their functions
 function buildButtons(correctAnswerIndex) {
     checkAnswerButton.addEventListener('click', function () {
@@ -120,7 +116,7 @@ function checkAnswer(correctAnswerIndex) {
         trackProgress()
     } else {
         // Set the image to correspond with the correct answer, display message, update progress
-        imageMatch.src = birds[correctAnswerIndex].photos[0]
+        imageMatch.src = birds[correctAnswerIndex].photos[0].src.valueOf()
         answerMessage.innerHTML = `Sorry, ${birds[correctAnswerIndex].name} is the right answer.`
         progress = 0
         trackProgress()
@@ -129,7 +125,8 @@ function checkAnswer(correctAnswerIndex) {
 
 // Function to update the image on the right of the page to correspond with the currently selected answer
 function switchImage(n, answerOptions) {
-    imageMatch.src = birds[answerOptions[n]].photos[0]
+    imageMatch.src = birds[answerOptions[n]].photos[0].src.valueOf()
+    imageMatch.alt = `A ${birds[answerOptions[n]].name}`
 }
 
 function trackProgress() {
