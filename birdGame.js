@@ -6,6 +6,7 @@ let answerMessage = document.getElementById('answer-text')
 let imageMatch  = document.getElementById('image-match')
 let audio = document.getElementById('bird-sound')
 let progress = 0
+let recentAudio = []
 
 // Play the game
 playGame()
@@ -23,11 +24,28 @@ function selectBirdSound() {
     let correctAnswerObject = birds[correctAnswerIndex]
     // Select sound element, and set its source to the selected birds' call
     // Uses a random index from the sounds array to allow for a single bird to have multiple calls
-    audio.src = correctAnswerObject.sounds[Math.floor(Math.random()
+    let audioSource = correctAnswerObject.sounds[Math.floor(Math.random()
         * correctAnswerObject.sounds.length)].src.valueOf()
-
-    return correctAnswerIndex
+    // If it wasn't one of the 4 most recent clips, set it up to play
+    // Otherwise pick a new clip
+    if(!recentAudio.includes(audioSource)){
+        audio.src = audioSource
+        trackRecentAudio(audioSource)
+        return correctAnswerIndex
+    } else selectBirdSound()
 }
+
+// Function that stores the last 4 audio clips
+function trackRecentAudio(audioSource) {
+    // Add the audio clip to the array
+    if (recentAudio.length < 4) {
+        recentAudio.push(audioSource)
+    } else {
+        recentAudio.push(audioSource)
+        recentAudio.splice(0, 1)
+    }
+}
+
 
 //Function to randomly select and display 3 potential answers, along with the correct answer, in a random order
 function buildGame () {
@@ -152,6 +170,7 @@ function trackProgress() {
     }
 }
 
+/**
 // Function for image preloading
 function loadImagesLong(answerOptions) {
     // array for iteration
@@ -167,6 +186,7 @@ function loadImagesLong(answerOptions) {
         image.src = bird.photos[0].src.valueOf()
     })
 }
+**/
 
 // Function for image preloading
 function loadImages(answerOptions) {
