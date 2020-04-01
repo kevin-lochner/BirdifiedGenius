@@ -91,3 +91,11 @@
     background-color: #295f4d;
     color: #ffffff;
 }
+
+.location-selection {
+    text-align: center;
+}
+
+#location-selection-text {
+    margin-top: 10px;
+}

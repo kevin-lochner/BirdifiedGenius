@@ -7,6 +7,8 @@ let imageMatch  = document.getElementById('image-match')
 let audio = document.getElementById('bird-sound')
 let progress = 0
 let recentAudio = []
+let locationLabelText = 'Everywhere'
+
 
 // Play the game
 playGame()
@@ -25,14 +27,14 @@ function selectBirdSound() {
     // Select sound element, and set its source to the selected birds' call
     // Uses a random index from the sounds array to allow for a single bird to have multiple calls
     let audioSource = correctAnswerObject.sounds[Math.floor(Math.random()
-        * correctAnswerObject.sounds.length)].src.valueOf()
-    // If it wasn't one of the 4 most recent clips, set it up to play
-    // Otherwise pick a new clip
-    if(!recentAudio.includes(audioSource)){
-        audio.src = audioSource
-        trackRecentAudio(audioSource)
-        return correctAnswerIndex
-    } else selectBirdSound()
+        * correctAnswerObject.sounds.length)].src
+    // If it was one of the 4 most recent clips, pick a new clip, otherwise set it up to play
+    while(recentAudio.includes(audioSource)){
+        selectBirdSound()
+    }
+    audio.src = audioSource
+    trackRecentAudio(audioSource)
+    return correctAnswerIndex
 }
 
 // Function that stores the last 4 audio clips
@@ -46,50 +48,51 @@ function trackRecentAudio(audioSource) {
     }
 }
 
-
 //Function to randomly select and display 3 potential answers, along with the correct answer, in a random order
 function buildGame () {
     // Clear the answer message
     answerMessage.innerText = ''
-
+    changeLocation(locationLabelText)
     // Select an index to serve as the correct answer
     let correctAnswerIndex = selectBirdSound()
 
     // Create the rest of the potential answers
     let answerOptions = createAnswerOptions(correctAnswerIndex)
 
-    // Pre load the images for faster swaps
+    // Pre load the images for each answer option for faster swaps
     loadImages(answerOptions)
 
-    // Select and assign answer radio buttons
-    let answer1Label = document.getElementById('answer-1-label')
-    let answer2Label = document.getElementById('answer-2-label')
-    let answer3Label = document.getElementById('answer-3-label')
-    let answer4Label = document.getElementById('answer-4-label')
-    answer1Label.innerHTML = birds[answerOptions[0]].name
-    answer2Label.innerHTML = birds[answerOptions[1]].name
-    answer3Label.innerHTML = birds[answerOptions[2]].name
-    answer4Label.innerHTML = birds[answerOptions[3]].name
+    // Select and assign the answer labels
+    let answerIds = ['answer-1-label', 'answer-2-label', 'answer-3-label', 'answer-4-label']
+    let answerLabels = answerIds.map( function(id) {
+        return document.getElementById(id)
+    })
+
+    answerLabels.forEach( function( label, index) {
+        let answerName = birds[answerOptions[index]].name
+        label.innerHTML = answerName
+        label.addEventListener('click', function () {
+            switchImage([index], answerOptions)
+        })
+    })
 
     // Set the first answer to checked
     let answer1Checked = document.getElementById('answer-1')
     answer1Checked.checked = true
-
     // Set the image on the right hand side of the page to match the first answer option
     switchImage(0, answerOptions)
 
-    // Any time a potential answer is clicked, update the image to correspond
-    answer1Label.addEventListener('click', function () {
-        switchImage(0, answerOptions)
+
+    let locationIds = ['world-label', 'united-states-label', 'minnesota-label']
+    let locationLabels = locationIds.map(function(id){
+        return document.getElementById(id)
     })
-    answer2Label.addEventListener('click', function () {
-        switchImage(1, answerOptions)
-    })
-    answer3Label.addEventListener('click', function () {
-        switchImage(2, answerOptions)
-    })
-    answer4Label.addEventListener('click', function () {
-        switchImage(3, answerOptions)
+
+    locationLabels.forEach( function(locationLabel){
+        locationLabel.addEventListener('click', function () {
+            locationLabelText = locationLabel.innerHTML
+            changeLocation(locationLabelText)
+        })
     })
 
     return correctAnswerIndex
@@ -106,7 +109,6 @@ function createAnswerOptions(correctAnswerIndex){
             answerOptions.push(newAnswerIndex)
         }
     }
-
     // Randomly reorder the answer options
     shuffle(answerOptions)
 
@@ -141,7 +143,7 @@ function checkAnswer(correctAnswerIndex) {
         trackProgress()
     } else {
         // Set the image to correspond with the correct answer, display message, update progress
-        imageMatch.src = birds[correctAnswerIndex].photos[0].src.valueOf()
+        imageMatch.src = birds[correctAnswerIndex].photos[0].src
         answerMessage.innerHTML = `Sorry, ${birds[correctAnswerIndex].name} is the right answer.`
         progress = 0
         trackProgress()
@@ -150,50 +152,30 @@ function checkAnswer(correctAnswerIndex) {
 
 // Function to update the image on the right of the page to correspond with the currently selected answer
 function switchImage(n, answerOptions) {
-    imageMatch.src = birds[answerOptions[n]].photos[0].src.valueOf()
+    imageMatch.src = birds[answerOptions[n]].photos[0].src
     imageMatch.alt = `A ${birds[answerOptions[n]].name}`
 }
 
 // Function for updating progress bar
 function trackProgress() {
     let progressBar = document.getElementById('progress-bar')
-    if(progress === 0) {
-        let progressCSS = `${progress * 4}%`
-        progressBar.style.width = progressCSS
-        progressBar.setAttribute('aria-ValueNow', progress)
-        progressBar.innerHTML = `Streak: ${progress}`
-    } else {
-        let progressCSS = `${progress * 4}%`
-        progressBar.style.width = progressCSS
-        progressBar.setAttribute('aria-ValueNow', progress)
-        progressBar.innerHTML = `Streak: ${progress}`
-    }
+    progressBar.style.width = `${progress * 4}%`
+    progressBar.setAttribute('aria-ValueNow', progress)
+    progressBar.innerHTML = `Streak: ${progress}`
 }
-
-/**
-// Function for image preloading
-function loadImagesLong(answerOptions) {
-    // array for iteration
-    let birdChoices = [
-        birds[answerOptions[0]],
-        birds[answerOptions[1]],
-        birds[answerOptions[2]],
-        birds[answerOptions[3]]
-    ]
-
-    birdChoices.forEach( bird => {
-        let image = new Image()
-        image.src = bird.photos[0].src.valueOf()
-    })
-}
-**/
 
 // Function for image preloading
 function loadImages(answerOptions) {
     answerOptions.forEach( option => {
         let image = new Image()
-        image.src = birds[option].photos[0].src.valueOf()
+        image.src = birds[option].photos[0].src
     })
+}
+
+function changeLocation(locationLabelText){
+    let locationMessage = document.getElementById('location-selection-text')
+    locationMessage.innerHTML = `You are playing birds from ${locationLabelText}.`
+
 }
 
 // This function is an adaptation of the Fisher-Yates algorithm found here:
