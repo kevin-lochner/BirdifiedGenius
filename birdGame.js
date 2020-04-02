@@ -7,8 +7,7 @@ let imageMatch  = document.getElementById('image-match')
 let audio = document.getElementById('bird-sound')
 let progress = 0
 let recentAudio = []
-let locationLabelText = 'Everywhere'
-
+let count = 0
 
 // Play the game
 playGame()
@@ -19,22 +18,32 @@ function playGame() {
     buildButtons(correctAnswerIndex)
 }
 
-//Function to select a random bird and load a corresponding call into the audio element
-function selectBirdSound() {
-    // Choose a random "correct answer" object from birds.js
+//Function to select a random bird
+function selectCorrectAnswer() {
+    // Choose a random index from birds.js
     let correctAnswerIndex = Math.floor(Math.random() * birds.length)
+    return correctAnswerIndex
+}
+
+// Function to validate and load the audio connected to the selected bird
+function setAudio(correctAnswerIndex){
+    count++
+    console.log(count)
+    // Select the correct object from birds.js
+    console.log(`correct: ${correctAnswerIndex}`)
     let correctAnswerObject = birds[correctAnswerIndex]
     // Select sound element, and set its source to the selected birds' call
     // Uses a random index from the sounds array to allow for a single bird to have multiple calls
-    let audioSource = correctAnswerObject.sounds[Math.floor(Math.random()
-        * correctAnswerObject.sounds.length)].src
+    let randomSoundIndex = Math.floor(Math.random() * correctAnswerObject.sounds.length)
+    let audioSource = correctAnswerObject.sounds[randomSoundIndex].src
+    console.log(`${recentAudio}`)
+    console.log(`potential audio: ${audioSource}`)
     // If it was one of the 4 most recent clips, pick a new clip, otherwise set it up to play
-    while(recentAudio.includes(audioSource)){
-        selectBirdSound()
-    }
-    audio.src = audioSource
-    trackRecentAudio(audioSource)
-    return correctAnswerIndex
+    if(!recentAudio.includes(audioSource)){
+        audio.src = audioSource
+        trackRecentAudio(audioSource)
+        return true
+    } else return false
 }
 
 // Function that stores the last 4 audio clips
@@ -52,9 +61,14 @@ function trackRecentAudio(audioSource) {
 function buildGame () {
     // Clear the answer message
     answerMessage.innerText = ''
-    changeLocation(locationLabelText)
+
     // Select an index to serve as the correct answer
-    let correctAnswerIndex = selectBirdSound()
+    let correctAnswerIndex = selectCorrectAnswer()
+
+    // Load that index' audio
+    while (!setAudio(correctAnswerIndex)) {
+        correctAnswerIndex = selectCorrectAnswer()
+    }
 
     // Create the rest of the potential answers
     let answerOptions = createAnswerOptions(correctAnswerIndex)
@@ -64,11 +78,11 @@ function buildGame () {
 
     // Select and assign the answer labels
     let answerIds = ['answer-1-label', 'answer-2-label', 'answer-3-label', 'answer-4-label']
-    let answerLabels = answerIds.map( function(id) {
+    let answerLabels = answerIds.map(function (id) {
         return document.getElementById(id)
     })
 
-    answerLabels.forEach( function( label, index) {
+    answerLabels.forEach(function (label, index) {
         let answerName = birds[answerOptions[index]].name
         label.innerHTML = answerName
         label.addEventListener('click', function () {
@@ -84,17 +98,14 @@ function buildGame () {
 
 
     let locationIds = ['world-label', 'united-states-label', 'minnesota-label']
-    let locationLabels = locationIds.map(function(id){
+    let locationLabels = locationIds.map(function (id) {
         return document.getElementById(id)
     })
 
-    locationLabels.forEach( function(locationLabel){
+    locationLabels.forEach(function (locationLabel) {
         locationLabel.addEventListener('click', function () {
-            locationLabelText = locationLabel.innerHTML
-            changeLocation(locationLabelText)
         })
     })
-
     return correctAnswerIndex
 }
 
@@ -170,12 +181,6 @@ function loadImages(answerOptions) {
         let image = new Image()
         image.src = birds[option].photos[0].src
     })
-}
-
-function changeLocation(locationLabelText){
-    let locationMessage = document.getElementById('location-selection-text')
-    locationMessage.innerHTML = `You are playing birds from ${locationLabelText}.`
-
 }
 
 // This function is an adaptation of the Fisher-Yates algorithm found here:
