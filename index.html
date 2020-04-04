@@ -18,7 +18,9 @@
     <div class="row">
         <div class="col-md">
             <div class="jumbotron">
-                <h1>Birdified Genius</h1>
+                <h2>Birdified</h2>
+                <img src="favicon.ico.jpg" height="50px">
+                <h2>Genius</h2>
             </div>
         </div>
     </div>
@@ -28,7 +30,7 @@
         <div class="col-sm-6">
 
             <div class="question">
-                <h2>What bird's call is this?</h2>
+                <h3>What bird's call is this?</h3>
             </div>
 
             <div class="audio">
@@ -73,8 +75,8 @@
         </div>
 
         <div class="col-sm-6">
-            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
+            <div id="answer-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" id="carousel-inner">
                     <div class="carousel-item active">
                         <img id="image-match" class="image-match img-fluid">
                         <div class="carousel-caption">
@@ -122,6 +124,22 @@
                 </form>
             </div>
 
+        </div>
+
+    </div>
+
+    <div class="row" id="caption-row">
+
+        <div class="col-sm-6">
+            <div class="audio-credit">
+                <p id="audio-credit"></p>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="image-credit">
+                <p id="image-credit"></p>
+            </div>
         </div>
 
     </div>

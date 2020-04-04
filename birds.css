@@ -99,3 +99,21 @@
 #location-selection-text {
     margin-top: 10px;
 }
+
+#caption-row {
+    margin-top: 25px;
+    background-color: #295f4d;
+    border-radius: 5px;
+}
+
+.audio-credit {
+    text-align: center;
+    color: #ffffff;
+    font-size: small;
+}
+
+.image-credit {
+    text-align: center;
+    color: #ffffff;
+    font-size: small;
+}

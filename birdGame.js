@@ -1,11 +1,13 @@
-// This script creates and runs a quiz game on bird sounds
+// This script creates and runs a quiz game on bird calls
 
-// Define variables needed globally, mostly HTML elements
+// Define variables used globally, mostly HTML elements
 let checkAnswerButton = document.getElementById('check-answer')
 let replayButton = document.getElementById('play-again')
 let answerMessage = document.getElementById('answer-text')
 let imageMatch  = document.getElementById('image-match')
 let audio = document.getElementById('bird-sound')
+let imageCredit = document.getElementById('image-credit')
+let audioCredit = document.getElementById('audio-credit')
 let progress = 0
 let recentAudio = []
 let count = 0
@@ -28,23 +30,26 @@ function playGame() {
 
     // Define check answer button functions
     checkAnswerButton.addEventListener('click', function () {
-        // Stop the audio
-        audio.pause()
-        // Find what answer the user selected
-        let userAnswer = document.getElementById(document.querySelector('input[name = answer]:checked').id + '-label').innerHTML
-        // Check the answer and respond accordingly
-        if (userAnswer === birds[correctAnswerIndex].name) {
-            // Display the message, update progress iterator and run the displayProgress function to update the bar
-            answerMessage.innerHTML = `${birds[correctAnswerIndex].name} is correct!`
-            progress += 1
-            displayProgress()
-        } else {
-            // Set the image to correspond with the correct answer, display message, update progress
-            imageMatch.src = birds[correctAnswerIndex].photos[0].src
-            answerMessage.innerHTML = `Sorry, ${birds[correctAnswerIndex].name} is the right answer.`
-            progress = 0
-            displayProgress()
-        }
+        if(correctAnswerIndex != null) {
+            // Stop the audio
+            audio.pause()
+            // Find what answer the user selected
+            let userAnswer = document.getElementById(document.querySelector('input[name = answer]:checked').id + '-label').innerHTML
+            // Check the answer and respond accordingly
+            if (userAnswer === birds[correctAnswerIndex].name) {
+                // Display the message, update progress iterator and run the displayProgress function to update the bar
+                answerMessage.innerHTML = `${birds[correctAnswerIndex].name} is correct!`
+                progress += 1
+                displayProgress()
+                correctAnswerIndex = null
+            } else {
+                // Set the image to correspond with the correct answer, display message, update progress
+                imageMatch.src = birds[correctAnswerIndex].photos[0].src
+                answerMessage.innerHTML = `Sorry, ${birds[correctAnswerIndex].name} is the right answer.`
+                progress = 0
+                displayProgress()
+            }
+        } else answerMessage.innerHTML = 'You\'ve already made a guess this sound. Click Play again to try another.'
     })
 
     // Define play again button functions
@@ -111,10 +116,11 @@ function setAudio(correctAnswerIndex){
     console.log(`${recentAudio}`)
     console.log(`potential audio: ${audioSource}`)
 
-    // If selected audio is not one of the four most recently played calls, load it into the audio element,
-    // add it to the recent audio array, and return true, otherwise, return false so we can try again
+    // If selected audio is not one of the four most recently played calls, load it into the audio element, add its
+    // credit below. add it to the recent audio array, and return true, otherwise, return false so we can try again
     if(!recentAudio.includes(audioSource)){
         audio.src = audioSource
+        audioCredit.innerHTML = `Audio: ${correctAnswerObject.sounds[randomSoundIndex].credit}`
         trackRecentAudio(audioSource)
         return true
     } else return false
@@ -196,7 +202,8 @@ function buildGame(currentIndexOptions) {
 // Function to update the image on the right of the page to correspond with the currently selected answer
 function switchImage(n, answerOptions) {
     imageMatch.src = birds[answerOptions[n]].photos[0].src
-    imageMatch.alt = `A ${birds[answerOptions[n]].name}`
+    imageMatch.alt = `${birds[answerOptions[n]].name}`
+    imageCredit.innerHTML = `Photo: ${birds[answerOptions[n]].photos[0].credit}`
 }
 
 // Function for updating progress bar
