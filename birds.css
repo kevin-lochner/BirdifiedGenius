@@ -4,6 +4,10 @@
     color: #ffffff;
 }
 
+.logo {
+    height: 50px;
+}
+
 .question {
     text-align: center;
     color: #063627;
@@ -17,6 +21,12 @@
 .answer-form {
     margin-left: -1.25rem;
 }
+
+/* I adapted from the following two links to determine how to style the radio buttons in the answer form and the
+ location selection form as actual buttons:
+https://markheath.net/post/customize-radio-button-css
+https://stackoverflow.com/questions/4641752/css-how-to-style-a-selected-radio-buttons-label
+ */
 
 .form-check input[type=radio] {
     display: none;

@@ -4,13 +4,12 @@
 let checkAnswerButton = document.getElementById('check-answer')
 let replayButton = document.getElementById('play-again')
 let answerMessage = document.getElementById('answer-text')
-let imageMatch  = document.getElementById('image-match')
+let imageMatch = document.getElementById('image-match')
 let audio = document.getElementById('bird-sound')
 let imageCredit = document.getElementById('image-credit')
 let audioCredit = document.getElementById('audio-credit')
 let progress = 0
 let recentAudio = []
-let count = 0
 
 // Play the game (main function)
 playGame()
@@ -30,7 +29,7 @@ function playGame() {
 
     // Define check answer button functions
     checkAnswerButton.addEventListener('click', function () {
-        if(correctAnswerIndex != null) {
+        if (correctAnswerIndex != null) {
             // Stop the audio
             audio.pause()
             // Find what answer the user selected
@@ -80,14 +79,14 @@ function playGame() {
 // Function to build an array of options to correspond with the selected location
 function buildCurrentIndexOptions(locationLabelText) {
     let locationArray = []
-    for(let n=0;n<birds.length; n++) {
+    for (let n = 0; n < birds.length; n++) {
         // everything goes into the array
-        if(locationLabelText === 'World') {
+        if (locationLabelText === 'World') {
             locationArray.push(n)
         }
         // Otherwise, make sure the location we are searching is in the file before adding
         else {
-            if(birds[n].location.includes(locationLabelText)) {
+            if (birds[n].location.includes(locationLabelText)) {
                 locationArray.push(n)
             }
         }
@@ -103,22 +102,17 @@ function selectCorrectAnswer(currentIndexOptions) {
 }
 
 // Function to validate and load the audio connected to the selected bird
-function setAudio(correctAnswerIndex){
-    count++
-    console.log(count)
-    console.log(`correct: ${correctAnswerIndex}`)
+function setAudio(correctAnswerIndex) {
     // Select the correct answer's object from birds.js
     let correctAnswerObject = birds[correctAnswerIndex]
 
     // Select a random index from the correct object's sounds array
     let randomSoundIndex = Math.floor(Math.random() * correctAnswerObject.sounds.length)
     let audioSource = correctAnswerObject.sounds[randomSoundIndex].src
-    console.log(`${recentAudio}`)
-    console.log(`potential audio: ${audioSource}`)
 
     // If selected audio is not one of the four most recently played calls, load it into the audio element, add its
-    // credit below. add it to the recent audio array, and return true, otherwise, return false so we can try again
-    if(!recentAudio.includes(audioSource)){
+    // credit below, add it to the recent audio array, and return true, otherwise, return false so we can try again
+    if (!recentAudio.includes(audioSource)) {
         audio.src = audioSource
         audioCredit.innerHTML = `Audio: ${correctAnswerObject.sounds[randomSoundIndex].credit}`
         trackRecentAudio(audioSource)
@@ -137,7 +131,7 @@ function trackRecentAudio(audioSource) {
 }
 
 // Function to create an array of 4 random answer options
-function createAnswerOptions(correctAnswerIndex, currentIndexOptions){
+function createAnswerOptions(correctAnswerIndex, currentIndexOptions) {
     // Create array of options that includes the "correct" index
     let answerOptions = [correctAnswerIndex]
 
@@ -156,8 +150,6 @@ function createAnswerOptions(correctAnswerIndex, currentIndexOptions){
 
 // Function to build the game's unique elements
 function buildGame(currentIndexOptions) {
-    console.log(currentIndexOptions)
-
     // Select an index to serve as the correct answer
     let correctAnswerIndex = selectCorrectAnswer(currentIndexOptions)
 
@@ -187,19 +179,23 @@ function buildGame(currentIndexOptions) {
             })
         })
 
-        // 'Click' the first answer, otherwise it stays with the button the user submitted on the last call
-        answerLabels[0].click()
+        // Set the first answer to checked (tried just using .click() on the first answer label, but it had the cache
+        // and flash issue loadImages was implemented to prevent--this seems to solve it
+        let answer1Checked = document.getElementById('answer-1')
+        answer1Checked.checked = true
+
+        // Set the image on the right hand side of the page to match the first answer option
+        switchImage(0, answerOptions)
 
     } else {
         // If the audio selected was played too recently, try again
-        console.log(`selected audio already played too recently`)
         correctAnswerIndex = buildGame(currentIndexOptions)
     }
 
     return correctAnswerIndex
 }
 
-// Function to update the image on the right of the page to correspond with the currently selected answer
+// Function to update the image on the right to correspond with the currently selected answer and display its credit below
 function switchImage(n, answerOptions) {
     imageMatch.src = birds[answerOptions[n]].photos[0].src
     imageMatch.alt = `${birds[answerOptions[n]].name}`
@@ -218,7 +214,7 @@ function displayProgress() {
 
 // Function for image preloading
 function loadImages(answerOptions) {
-    answerOptions.forEach( option => {
+    answerOptions.forEach(option => {
         let image = new Image()
         image.src = birds[option].photos[0].src
     })
@@ -229,7 +225,7 @@ function loadImages(answerOptions) {
 function shuffle(array) {
     let currentIndex = array.length, temporaryValue, randomIndex
 
-    while(0 !== currentIndex) {
+    while (0 !== currentIndex) {
         randomIndex = Math.floor(Math.random() * currentIndex)
         currentIndex -= 1
 
